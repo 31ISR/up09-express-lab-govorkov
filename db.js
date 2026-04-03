@@ -11,7 +11,7 @@ db.exec(`
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL,
         role TEXT DEFAULT 'user',
-        createdAt DATE DEFAULT CURRENT_DATE
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 `);
 

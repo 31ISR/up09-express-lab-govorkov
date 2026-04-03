@@ -3,7 +3,7 @@ const db = require('./db')
 const jwt = require('jsonwebtoken')
 const bcr = require('bcryptjs')
 const app = express()
-const SECRET = process.env.SECRET || "Привет серега"
+const SECRET = process.env.SECRET || "Влад123456"
 app.use(express.json())
 
 const auth = (req, res, next) => {
@@ -93,8 +93,23 @@ app.post('/api/auth/login', (req, res) => {
     }
 })
 
-app.get('/api/auth/profile', auth, (req, res) => {
-    res.status(200).json(req.user)
+app.get('/api/auth/profile/', auth, (req, res) => {
+    console.log(req.user);
+    
+    try {
+        const user = db.prepare("SELECT id, username, email, role FROM user WHERE id = ?").get(req.user.id)
+        
+        if (!user) {
+             res.status(404).json({ error: "Ошибка некая" })
+        }
+
+        res.status(200).json(req.user)
+        
+        
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: "Ошибка входа" })
+    }
 })
 
 app.get('/api/books', (req, res) => {
