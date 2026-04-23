@@ -1,0 +1,24 @@
+info:
+  name: Отладка тип
+  type: http
+  seq: 13
+
+http:
+  method: POST
+  url: "{{u}}/auth/register/butadmin"
+  body:
+    type: json
+    data: |-
+      {
+        "username": "vlad7",
+        "email": "vl@a.d7",
+        "password": "123456",
+        "role": "admin"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,32 @@
+info:
+  name: Изменить книгу по айди
+  type: http
+  seq: 7
+
+http:
+  method: PUT
+  url: "{{u}}/books/:id"
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE3NzY5MTM3ODUsImV4cCI6MTc3NzAwMDE4NX0.762N7s8S0aR1CHu4vgfZTa0a9ChEhNl_A-NSBo9W4bE
+  params:
+    - name: id
+      value: "166"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Богатый пепе",
+        "author": "Олеги",
+        "year": "2027",
+        "genre": "Военный фильм",
+        "description": "Новогодний триллер там с разборками с полицией наркотиками и т.д."
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

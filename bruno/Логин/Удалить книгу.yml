@@ -1,0 +1,22 @@
+info:
+  name: Удалить книгу
+  type: http
+  seq: 8
+
+http:
+  method: DELETE
+  url: "{{u}}/books/:id"
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE3NzY5MTM3ODUsImV4cCI6MTc3NzAwMDE4NX0.762N7s8S0aR1CHu4vgfZTa0a9ChEhNl_A-NSBo9W4bE
+  params:
+    - name: id
+      value: "166"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

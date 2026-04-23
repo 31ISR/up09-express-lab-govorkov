@@ -1,0 +1,31 @@
+info:
+  name: Добавить книгу
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{u}}/books"
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE3NzY5MTM3ODUsImV4cCI6MTc3NzAwMDE4NX0.762N7s8S0aR1CHu4vgfZTa0a9ChEhNl_A-NSBo9W4bE
+  params:
+    - name: ""
+      value: ""
+      type: query
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Богатый папа",
+        "author": "Олег",
+        "year": "2026",
+        "genre": "Классика",
+        "description": "Новогодний триллер там с разборками с полицией наркотиками и т.д."
+      }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
