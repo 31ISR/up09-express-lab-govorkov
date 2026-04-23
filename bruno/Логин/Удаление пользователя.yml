@@ -1,0 +1,18 @@
+info:
+  name: Удаление пользователя
+  type: http
+  seq: 14
+
+http:
+  method: GET
+  url: "{{u}}/admin/users"
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Nywicm9sZSI6ImFkbWluIiwiaWF0IjoxNzc2OTE1ODU2LCJleHAiOjE3NzcwMDIyNTZ9.XBILfhcP5S6ju4F3bGe96zv3SDyRmwgSuG6HRARlj9c
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

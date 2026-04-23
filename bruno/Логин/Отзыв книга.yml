@@ -1,0 +1,29 @@
+info:
+  name: Отзыв книга
+  type: http
+  seq: 9
+
+http:
+  method: POST
+  url: "{{u}}/books/:id/reviews"
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE3NzY5MTM3ODUsImV4cCI6MTc3NzAwMDE4NX0.762N7s8S0aR1CHu4vgfZTa0a9ChEhNl_A-NSBo9W4bE
+  params:
+    - name: id
+      value: "167"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "rating":"3",
+        "comment":"Самая лучшая книга, после такой и умереть хочется"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

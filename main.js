@@ -18,11 +18,11 @@ const auth = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, SECRET)
         const user = db.prepare("SELECT id, username, email, role FROM user WHERE id = ?").get(decoded.id)
-
+        
         if (!user) {
             return res.status(401).json({ error: "User not found" })
         }
-
+        
         req.user = user
         next()
     } catch (error) {
@@ -31,6 +31,36 @@ const auth = (req, res, next) => {
     }
 }
 
+// app.post('/api/auth/register/butadmin', (req, res) => {
+
+//     const { username, email, password, role } = req.body;
+//     const allowedRole = role === 'admin' ? 'admin' : 'user';
+
+//     if (!username || !email || !password) {
+//         return res.status(400).json({ error: "Все поля обязательны" });
+//     }
+
+//     try {
+//         const salt = bcr.genSaltSync(10);
+//         const hashedPassword = bcr.hashSync(password, salt);
+//         const query = db.prepare(
+//             "INSERT INTO user (username, email, password, role) VALUES (?, ?, ?, ?)"
+//         ).run(username, email, hashedPassword, allowedRole);
+
+//         const newUser = db.prepare("SELECT id, username, email, role, createdAt FROM user WHERE id = ?")
+//             .get(query.lastInsertRowid);
+//         const token = jwt.sign({ id: newUser.id, role: newUser.role }, SECRET, { expiresIn: "24h" });
+
+//         res.status(201).json({ user: newUser, token });
+
+//     } catch (error) {
+//         console.error(error);
+//         if (error.message.includes("UNIQUE")) {
+//             return res.status(400).json({ error: "Username или email уже существуют" });
+//         }
+//         res.status(500).json({ error: "Ошибка регистрации" });
+//     }
+// });
 
 app.post('/api/auth/register', (req, res) => {
     const { username, email, password } = req.body
@@ -95,17 +125,17 @@ app.post('/api/auth/login', (req, res) => {
 
 app.get('/api/auth/profile/', auth, (req, res) => {
     console.log(req.user);
-    
+
     try {
         const user = db.prepare("SELECT id, username, email, role FROM user WHERE id = ?").get(req.user.id)
-        
+
         if (!user) {
-             res.status(404).json({ error: "Ошибка некая" })
+            res.status(404).json({ error: "Ошибка некая" })
         }
 
         res.status(200).json(req.user)
-        
-        
+
+
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: "Ошибка входа" })
@@ -141,7 +171,9 @@ app.get('/api/books', (req, res) => {
     query += " ORDER BY b.createdAt DESC"
 
     try {
+
         const books = db.prepare(query).all(...params)
+
         res.status(200).json(books)
     } catch (error) {
         console.error(error)
@@ -341,7 +373,8 @@ app.delete('/api/reviews/:id', auth, (req, res) => {
     }
 })
 
-// --- ADMIN ЭНДПОИНТЫ ---
+
+
 app.get('/api/admin/users', auth, (req, res) => {
     if (req.user.role !== "admin") {
         return res.status(403).json({ error: "Требуются права администратора" })
